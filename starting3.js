@@ -169,24 +169,3 @@ console.log(year[0][0]);
 
 
 
-//strを使った変数ではobjectは呼び出せない
-//ex.m=[Mon,Tue,Wed]を使ってap[0].weeks[0]として中身を呼び出すことはできない(ap[0].Monはok)
-//objectは要素番号では呼び出せない
-//switchかforを1週間分作って条件分岐する?(曜日ごとに作らないとダメそう)
-/*
-    for (let weeks[i] of json.buffaloes){
-        if(weeks[i].Tue[2]=="〇"){
-            weeks.push(
-                `<td style="background-color: rgba(255,0,255,0.6)">${weeks[i].Tue[0]}<br>${weeks[i].Tue[1]}<br>${weeks[i].Tue[2]}</td>`
-            );
-        }else if(weeks[i].Tue=="×"){
-            weeks.push(
-                `<td style="background-color: rgba(138,43,226,0.6)">${weeks[i].Tue[0]}<br>${weeks[i].Tue[1]}<br>${weeks[i].Tue[2]}</td>`
-            );  
-        }else{
-            weeks.push(
-                `<td>${weeks[i].Tue[0]}<br>${weeks[i].Tue[1]}<br>${weeks[i].Tue[2]}</td>`
-            )
-        }
-        }
-*/
