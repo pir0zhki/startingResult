@@ -1,12 +1,12 @@
 const url="data_bs.json"
 //勝ち負けを格納したlistから当該月の連勝連敗記録を求める
 function WinorLoseStreak(list){
-    let winStreak=0;//継続中の連勝記録を格納
-    let loseStreak=0;//継続中の連敗記録を格納
-    let maxWin=0;//連勝記録を格納
-    let maxLose=0;//連敗記録を格納
-    let lastMaxWin=0;//暫定の最長連勝記録を格納
-    let lastMaxLose=0;//暫定の最長連敗記録を格納
+    let winStreak=0;//継続中の連勝記録
+    let loseStreak=0;//継続中の連敗記録
+    let maxWin=0;//連勝記録
+    let maxLose=0;//連敗記録
+    let lastMaxWin=0;//暫定の最長連勝記録
+    let lastMaxLose=0;//暫定の最長連敗記録
     for(var n of list){
         //前回のループまでの最長連続記録を更新
         lastMaxWin=maxWin;
@@ -22,7 +22,7 @@ function WinorLoseStreak(list){
                 maxWin=lastMaxWin;
             };
         //負けの場合
-        }else{
+        }else if(n==0){//後でリストを結合する関係で空欄は除外
             loseStreak+=1;
             winStreak=0;
             if(loseStreak>lastMaxLose){
@@ -64,6 +64,8 @@ function formatJSON(json){
     let year=[ap_weeks,may_weeks,june_weeks];
     let streak=[];
     let result=[];
+    let yearStreak=[];
+    let yearWin=[];
 
     //外側のネストm:月
     //内側のネストi:第何週か
@@ -75,11 +77,11 @@ function formatJSON(json){
         for(var i=0;i<5;i++){
             switch(year[m][i].Mon[2]){
                 case '〇':{
-                    mon= `<td style="background-color: rgba(255,0,255,0.6)">${year[m][i].Mon[0]}<br>${year[m][i].Mon[1]}<br>${year[m][i].Mon[2]}</td>`;
+                    mon= `<td style="background-color: rgba(255,0,255,0.6)">${year[m][i].Mon[0]}<br>${year[m][i].Mon[1]}<br>${year[m][i].Mon[2]}${year[m][i].Mon[4]}<br>${year[m][i].Mon[3]}</td>`;
                     win.push(1);
                     break}
                 case '×':{
-                    mon=`<td style="background-color: rgba(138,43,226,0.6)">${year[m][i].Mon[0]}<br>${year[m][i].Mon[1]}<br>${year[m][i].Mon[2]}</td>`;
+                    mon=`<td style="background-color: rgba(123,104,238,0.6)">${year[m][i].Mon[0]}<br>${year[m][i].Mon[1]}<br>${year[m][i].Mon[2]}${year[m][i].Mon[4]}<br>${year[m][i].Mon[3]}</td>`;
                     win.push(0);
                     break}
                 default:
@@ -88,11 +90,11 @@ function formatJSON(json){
                 }
             switch(year[m][i].Tue[2]){
                 case '〇':{
-                    tue=`<td style="background-color: rgba(255,0,255,0.6)">${year[m][i].Tue[0]}<br>${year[m][i].Tue[1]}<br>${year[m][i].Tue[2]}</td>`;
+                    tue=`<td style="background-color: rgba(255,0,255,0.6)">${year[m][i].Tue[0]}<br>${year[m][i].Tue[1]}<br>${year[m][i].Tue[2]}${year[m][i].Tue[4]}<br>${year[m][i].Tue[3]}</td>`;
                     win.push(1);
                     break}
                 case '×':{
-                    tue=`<td style="background-color: rgba(138,43,226,0.6)">${year[m][i].Tue[0]}<br>${year[m][i].Tue[1]}<br>${year[m][i].Tue[2]}</td>`;
+                    tue=`<td style="background-color: rgba(123,104,238,0.6)">${year[m][i].Tue[0]}<br>${year[m][i].Tue[1]}<br>${year[m][i].Tue[2]}${year[m][i].Tue[4]}<br>${year[m][i].Tue[3]}</td>`;
                     win.push(0);
                     break}
                 default:
@@ -101,11 +103,11 @@ function formatJSON(json){
                 }
             switch(year[m][i].Wed[2]){
                 case '〇':{
-                    wed=`<td style="background-color: rgba(255,0,255,0.6)">${year[m][i].Wed[0]}<br>${year[m][i].Wed[1]}<br>${year[m][i].Wed[2]}</td>`;
+                    wed=`<td style="background-color: rgba(255,0,255,0.6)">${year[m][i].Wed[0]}<br>${year[m][i].Wed[1]}<br>${year[m][i].Wed[2]}${year[m][i].Wed[4]}<br>${year[m][i].Wed[3]}</td>`;
                     win.push(1);
                     break}
                 case '×':{
-                    wed=`<td style="background-color: rgba(138,43,226,0.6)">${year[m][i].Wed[0]}<br>${year[m][i].Wed[1]}<br>${year[m][i].Wed[2]}</td>`;
+                    wed=`<td style="background-color: rgba(123,104,238,0.6)">${year[m][i].Wed[0]}<br>${year[m][i].Wed[1]}<br>${year[m][i].Wed[2]}${year[m][i].Wed[4]}<br>${year[m][i].Wed[3]}</td>`;
                     win.push(0);
                     break}
                 default:
@@ -114,11 +116,11 @@ function formatJSON(json){
                 }
             switch(year[m][i].Thu[2]){
                 case '〇':{
-                    thu=`<td id='win' style="background-color: rgba(255,0,255,0.6)">${year[m][i].Thu[0]}<br>${year[m][i].Thu[1]}<br>${year[m][i].Thu[2]}</td>`;
+                    thu=`<td id='win' style="background-color: rgba(255,0,255,0.6)">${year[m][i].Thu[0]}<br>${year[m][i].Thu[1]}<br>${year[m][i].Thu[2]}${year[m][i].Thu[4]}<br>${year[m][i].Thu[3]}</td>`;
                     win.push(1);
                     break}
                 case '×':{
-                    thu=`<td style="background-color: rgba(138,43,226,0.6)">${year[m][i].Thu[0]}<br>${year[m][i].Thu[1]}<br>${year[m][i].Thu[2]}</td>`;
+                    thu=`<td style="background-color: rgba(123,104,238,0.6)">${year[m][i].Thu[0]}<br>${year[m][i].Thu[1]}<br>${year[m][i].Thu[2]}${year[m][i].Thu[4]}<br>${year[m][i].Thu[3]}</td>`;
                     win.push(0);
                     break}
                 default:
@@ -127,11 +129,11 @@ function formatJSON(json){
                 }
             switch(year[m][i].Fri[2]){
                 case '〇':{
-                    fri=`<td style="background-color: rgba(255,0,255,0.6)">${year[m][i].Fri[0]}<br>${year[m][i].Fri[1]}<br>${year[m][i].Fri[2]}</td>`;
+                    fri=`<td style="background-color: rgba(255,0,255,0.6)">${year[m][i].Fri[0]}<br>${year[m][i].Fri[1]}<br>${year[m][i].Fri[2]}${year[m][i].Fri[4]}<br>${year[m][i].Fri[3]}</td>`;
                     win.push(1);
                     break}
                 case '×':{
-                    fri=`<td style="background-color: rgba(138,43,226,0.6)">${year[m][i].Fri[0]}<br>${year[m][i].Fri[1]}<br>${year[m][i].Fri[2]}</td>`;
+                    fri=`<td style="background-color: rgba(123,104,238,0.6)">${year[m][i].Fri[0]}<br>${year[m][i].Fri[1]}<br>${year[m][i].Fri[2]}${year[m][i].Fri[4]}<br>${year[m][i].Fri[3]}</td>`;
                     win.push(0);
                     break}
                 default:
@@ -140,11 +142,11 @@ function formatJSON(json){
                 }
             switch(year[m][i].Sat[2]){
                 case '〇':{
-                    sat=`<td style="background-color: rgba(255,0,255,0.6)">${year[m][i].Sat[0]}<br>${year[m][i].Sat[1]}<br>${year[m][i].Sat[2]}</td>`;
+                    sat=`<td style="background-color: rgba(255,0,255,0.6)">${year[m][i].Sat[0]}<br>${year[m][i].Sat[1]}<br>${year[m][i].Sat[2]}${year[m][i].Sat[4]}<br>${year[m][i].Sat[3]}</td>`;
                     win.push(1);
                     break}
                 case '×':{
-                    sat=`<td style="background-color: rgba(138,43,226,0.6)">${year[m][i].Sat[0]}<br>${year[m][i].Sat[1]}<br>${year[m][i].Sat[2]}</td>`;
+                    sat=`<td style="background-color: rgba(123,104,238,0.6)">${year[m][i].Sat[0]}<br>${year[m][i].Sat[1]}<br>${year[m][i].Sat[2]}${year[m][i].Sat[4]}<br>${year[m][i].Sat[3]}</td>`;
                     win.push(0);
                     break}
                 default:
@@ -153,11 +155,11 @@ function formatJSON(json){
                 }
             switch(year[m][i].Sun[2]){
                 case '〇':{
-                    sun=`<td style="background-color: rgba(255,0,255,0.6)">${year[m][i].Sun[0]}<br>${year[m][i].Sun[1]}<br>${year[m][i].Sun[2]}</td>`;
+                    sun=`<td style="background-color: rgba(255,0,255,0.6)">${year[m][i].Sun[0]}<br>${year[m][i].Sun[1]}<br>${year[m][i].Sun[2]}${year[m][i].Sun[4]}<br>${year[m][i].Sun[3]}</td>`;
                     win.push(1);
                     break}
                 case '×':{
-                    sun=`<td style="background-color: rgba(138,43,226,0.6)">${year[m][i].Sun[0]}<br>${year[m][i].Sun[1]}<br>${year[m][i].Sun[2]}</td>`;
+                    sun=`<td style="background-color: rgba(123,104,238,0.6)">${year[m][i].Sun[0]}<br>${year[m][i].Sun[1]}<br>${year[m][i].Sun[2]}${year[m][i].Sun[4]}<br>${year[m][i].Sun[3]}</td>`;
                     win.push(0);
                     break}
                 default:
@@ -177,10 +179,23 @@ function formatJSON(json){
 
         //WinorLoseStreakの戻り値の配列をmaxWinLoseと呼ぶ
         let maxWinLose=WinorLoseStreak(win);
-        console.log('maxWinLoseの中身:'+maxWinLose);
         streak.push(`<h3>連勝:${maxWinLose[0]},連敗:${maxWinLose[1]}</h3>`);
+        //winリストをyearWinリストの要素として毎月格納していく
+        //月数＝yearWinの要素数
+        yearWin.push(win);
     }
+        
+        //concatは元の配列(yearWin)が書き換わるわけではないので注意
+        //仕方なくyearWin[0]に他のyearWin要素を追加する
+        //存在しない要素を付け足しても要素数が増えてloseとしてカウントされる
+        //n==0のときのみloseとなるように関数を変更
 
+        //予めシーズンの全月分を結合するようにしておく
+        let yearWinList=yearWin[0].concat(yearWin[1],yearWin[2],yearWin[3],
+            yearWin[4],yearWin[5],yearWin[6],yearWin[7]);
+    
+        let year_maxWinLose=WinorLoseStreak(yearWinList);
+        let year_streak=`<h4>最長連勝記録:${year_maxWinLose[0]},最長連敗記録:${year_maxWinLose[1]}</h4>`;
 
         document.getElementById("result4").innerHTML=result[0];
         document.getElementById("result5").innerHTML=result[1];
@@ -205,8 +220,22 @@ function formatJSON(json){
         document.getElementById("streak4").innerHTML=streak[0];
         document.getElementById("streak5").innerHTML=streak[1];
         document.getElementById("streak6").innerHTML=streak[2];
+
+        let year_streakList=document.getElementsByClassName("year_streak")
+        //getElementsByClassName()は配列,要素番号でエレメントを指定
+        for(var n=0;n<year_streakList.length;n++){
+            year_streakList[n].innerHTML=year_streak;
+        }
+        
+
+    
+    console.log('yearStreakの中身:'+yearStreak);
+    console.log('yearWinListの中身:'+yearWinList);
+    console.log('yearWinListの要素数:'+yearWinList.length);
+    console.log('typeof:'+typeof(yearWin));
+    console.log('win:'+typeof(win));
 };
-   
+
     
     
     window.addEventListener("load",()=>{
@@ -232,7 +261,7 @@ function formatJSON(json){
             );
         }else if(weeks[i].Tue=="×"){
             weeks.push(
-                `<td style="background-color: rgba(138,43,226,0.6)">${weeks[i].Tue[0]}<br>${weeks[i].Tue[1]}<br>${weeks[i].Tue[2]}</td>`
+                `<td style="background-color: rgba(123,104,238,0.6)">${weeks[i].Tue[0]}<br>${weeks[i].Tue[1]}<br>${weeks[i].Tue[2]}</td>`
             );  
         }else{
             weeks.push(
